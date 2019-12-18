@@ -7,7 +7,9 @@ This cluster consists of 5 physical machines
 * apu03.home: Running kubectl
 * apu04.home apu05.home apu06.home: Worker nodes
 
-## Preparation (apu01.home)
+## Preparation
+Perpare the nodes as descibed below before running the playbook
+### apu01.home
 Install basic dependencies for ansible
 ```bash
 apt update && apt upgrade -y && apt autoremove -y && reboot
