@@ -69,6 +69,15 @@ Add it on all nodes as authorized key
 mkdir .ssh
 vim .ssh/authorized_keys
 ```
+## Ansbile configuration
+In order to pass the init command from the master node to the workers I had to configure json for facts in `/etc/ansible/ansible.cfg` in the `defaults` section.
+```bash
+[defaults]
+gathering = smart
+fact_caching = jsonfile
+fact_caching_connection = /tmp/facts_cache
+fact_caching_timeout = 7200
+```
 ## Run playbook
 In order to run the playbook enter the following command
 ```bash
