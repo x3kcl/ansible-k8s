@@ -1,0 +1,5 @@
+- name: Apt refresh repository
+  import_tasks: repository.yml
+- import_tasks: screen.yml
+- import_tasks: dpk.yml
+- import_tasks: swap.yml

@@ -1,0 +1,6 @@
+- name: Unconditionally reboot the machine with all defaults
+  reboot:
+    msg: "Reboot initiated by Ansible"
+    test_command: "whoami"
+  become: yes
+  become_method: sudo

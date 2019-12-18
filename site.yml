@@ -1,0 +1,41 @@
+- name: apply common configuration to all nodes
+  hosts: all
+  remote_user: ansible
+
+  roles:
+    - common
+
+- name: install docker
+  hosts: all
+  remote_user: ansible
+
+  roles:
+    - docker
+
+- name: common k8 config
+  hosts: all
+  remote_user: ansible
+
+  roles:
+    - k8-common
+
+- name: install kubeadm
+  hosts: master
+  remote_user: ansible
+
+  roles:
+    - k8-master
+
+- name: install kubeadm
+  hosts: nodes
+  remote_user: ansible
+
+  roles:
+    - k8-worker
+
+- name: finalize
+  hosts: all
+  remoteuser: ansible
+
+  roles:
+    - finalize

@@ -1,0 +1,67 @@
+- name: Touch daemon.json
+  file:
+    path: /etc/docker/daemon.json
+    state: touch
+  become: yes
+  become_method: sudo
+
+- name: Configure systemd
+  template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+    backup: yes
+  become: yes
+  become_method: sudo
+
+- name: Create docker.service.d directory
+  file:
+    path: /etc/systemd/system/docker.service.d
+    state: directory
+  become: yes
+  become_method: sudo
+
+- name: just force systemd to reread configs
+  systemd:
+    daemon_reload: yes
+  become: yes
+  become_method: sudo
+
+- name: restart service docker
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: docker
+  become: yes
+  become_method: sudo
+
+- name: enable service docker
+  systemd:
+    name: docker
+    enabled: yes
+    masked: no
+  become: yes
+  become_method: sudo
+
+- name: Add kubernetes key
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+  become: yes
+  become_method: sudo
+
+- name: Add kubernetes reposotory
+  apt_repository:
+    repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+  become: yes
+  become_method: sudo
+
+- name: Install kubeadm and kubelet
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  loop: [ 'kubeadm', 'kubelet' ]
+  become: yes
+  become_method: sudo
+

@@ -1,0 +1,35 @@
+- name: initialize the cluster
+  shell: kubeadm init --pod-network-cidr=10.80.0.0/24 >> cluster_initialized.txt
+  args:
+    chdir: $HOME
+    creates: cluster_initialized.txt
+  become: yes
+  become_method: sudo
+
+- name: Check admin.conf file exists.
+  stat:
+    path: /etc/kubernetes/admin.conf
+  register: k8s_conf
+  become: yes
+  become_method: sudo
+
+- name: Create a directory if it does not exist
+  file:
+    path: "/home/kube/.kube"
+    state: directory
+    owner: kube
+    group: kube
+    mode: 0755
+  become: yes
+  become_method: sudo
+
+- name: Ansible copy files remote to remote
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: "/home/kube/.kube/config"
+    owner: kube 
+    group: kube
+    remote_src: yes
+  become: yes
+  become_method: sudo
+  when: k8s_conf.stat.exists

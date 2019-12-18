@@ -1,0 +1,24 @@
+- name: Create a new group docker
+  group:
+    name: docker
+    state: present
+  become: yes
+  become_method: sudo
+
+- name: Create a new cloud
+  group:
+    name: cloud
+    state: present
+  become: yes
+  become_method: sudo
+
+- name: Add the user 'cloud' with a specific uid 
+  user:
+    name: cloud
+    comment: Docker Cloud User
+    uid: "{{ cloud_uid }}"
+    group: cloud
+    groups: docker,sudo
+    append: yes
+  become: yes
+  become_method: sudo

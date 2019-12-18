@@ -1,0 +1,5 @@
+- name: Apt refresh repository
+  import_tasks: dpk.yml
+- import_tasks: config.yml
+- import_tasks: kubeadm.yml
+- import_tasks: join.yml

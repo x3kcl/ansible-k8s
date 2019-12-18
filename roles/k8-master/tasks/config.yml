@@ -1,0 +1,7 @@
+- name: Update apt and install kubectl
+  apt: 
+    update_cache: yes 
+    name: kubectl
+    state: latest
+  become: yes
+  become_method: sudo

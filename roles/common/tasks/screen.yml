@@ -1,0 +1,7 @@
+- name: Screen configuration
+  blockinfile:
+    block: "{{ lookup('template', 'screen.j2') }}"
+    dest: /etc/screenrc
+    backup: yes
+  become: yes
+  become_method: sudo

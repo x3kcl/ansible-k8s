@@ -1,0 +1,35 @@
+- name: Create a new group kube
+  group:
+    name: kube
+    state: present
+  become: yes
+  become_method: sudo
+
+- name: Add the user 'kube' with a specific uid 
+  user:
+    name: kube
+    comment: Kube User
+    uid: "{{ kube_uid }}"
+    group: kube
+    groups: docker,sudo
+    append: yes
+    state: present
+    createhome: yes
+    shell: /bin/bash
+  become: yes
+  become_method: sudo
+
+- name: allow 'kube' to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    line: 'ubuntu ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+  become: yes
+  become_method: sudo
+
+- name: set up authorized keys for the ubuntu user
+  authorized_key: user=kube key="{{item}}"
+  with_file:
+    - ~/.ssh/id_rsa.pub
+  become: yes
+  become_method: sudo

@@ -1,0 +1,8 @@
+- name: Install python
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  loop: [ 'vim', 'screen', 'lsof', 'curl' ]
+  become: yes
+  become_method: sudo
