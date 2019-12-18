@@ -1,5 +1,11 @@
 # ansible-k8s
-Ansible playbook to install a kubernetes cluster on ubuntu 
+Ansible playbook to install a kubernetes cluster on ubuntu.
+## Introduction
+This cluster consists of 5 physical machines
+
+* apu01.home: Running ansible
+* apu03.home: Running kubectl
+* apu04.home apu05.home apu06.home: Worker nodes
 
 ## Preparation
 Install basic dependencies for ansible
