@@ -63,3 +63,8 @@ Add it on all nodes as authorized key
 mkdir .ssh
 vim .ssh/authorized_keys
 ```
+## Run playbook
+In order to run the playbook enter the following command
+```bash
+ansible-playbook site.yml
+```
