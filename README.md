@@ -7,7 +7,7 @@ This cluster consists of 5 physical machines
 * apu03.home: Running kubectl
 * apu04.home apu05.home apu06.home: Worker nodes
 
-## Preparation
+## Preparation (apu01.home)
 Install basic dependencies for ansible
 ```bash
 apt update && apt upgrade -y && apt autoremove -y && reboot
@@ -31,6 +31,7 @@ apu[04:06].home
 [k8s:vars]
 ansible_python_interpreter=/usr/bin/python3
 ```
+### all nodes 
 Add an `ansible` user
 ```bash
 useradd -m ansible
@@ -47,10 +48,12 @@ Start `bash`
 ```bash
 bash
 ```
+### apu01.home
 Create an ssh key
 ```bash
 ssh-keygen
 ```
+### all nodes
 Give the user `ansible` the bash shell as default
 ```bash
 usermod --shell /bin/bash ansible
@@ -60,10 +63,12 @@ Allow to sudo without password from the ansible user
 echo "ansible ALL = (root) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/ansible
 sudo chmod 0440 /etc/sudoers.d/ansible
 ```
+### apu01.home
 Copy the public ssh key of the ansible user
 ```bash
 vim .ssh/id_rsa.pub
 ```
+### all workers
 Add it on all nodes as authorized key
 ```bash
 mkdir .ssh
