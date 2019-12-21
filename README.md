@@ -14,9 +14,8 @@ Install basic dependencies for ansible
 ```bash
 apt update && apt upgrade -y && apt autoremove -y && reboot
 apt update
-apt install software-properties-common -y
+apt install software-properties-common python-argcomplete -y
 apt-add-repository --yes --update ppa:ansible/ansible
-apt install python-argcomplete
 vim /etc/ansible/hosts
 ```
 Add the following configuration to your `/etc/asible/hosts` file.
