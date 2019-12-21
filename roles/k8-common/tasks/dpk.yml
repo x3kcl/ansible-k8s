@@ -49,7 +49,7 @@
   become: yes
   become_method: sudo
 
-- name: Add kubernetes reposotory
+- name: Add kubernetes repository
   apt_repository:
     repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
     state: present
