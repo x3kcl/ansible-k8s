@@ -41,6 +41,15 @@ With group `ansible` and `sudo` allowance
 ```bash
 usermod -a -G sudo ansible
 ```
+Give the user `ansible` the bash shell as default
+```bash
+usermod --shell /bin/bash ansible
+```
+Allow to sudo without password from the ansible user
+```bash
+echo "ansible ALL = (root) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/ansible
+sudo chmod 0440 /etc/sudoers.d/ansible
+```
 Switch to the user
 ```bash
 su - ansible
@@ -53,16 +62,6 @@ bash
 Create an ssh key
 ```bash
 ssh-keygen
-```
-### all nodes
-Give the user `ansible` the bash shell as default
-```bash
-usermod --shell /bin/bash ansible
-```
-Allow to sudo without password from the ansible user
-```bash
-echo "ansible ALL = (root) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/ansible
-sudo chmod 0440 /etc/sudoers.d/ansible
 ```
 ### apu01.home
 Copy the public ssh key of the ansible user
