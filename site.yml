@@ -21,7 +21,7 @@
 
 - name: install kubeadm
   hosts: master
-  remote_user: ansible
+  remote_user: kube
 
   roles:
     - k8-master
