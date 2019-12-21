@@ -35,7 +35,7 @@
 
 - name: finalize
   hosts: all
-  remoteuser: ansible
+  remote_user: ansible
 
   roles:
     - finalize
